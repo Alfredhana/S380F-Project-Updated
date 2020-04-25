@@ -21,4 +21,10 @@
         <property name="suffix" value=".jsp" />
     </bean>
     
+    <bean id="userRepo" class="ouhk.comps380f.dao.UserRepositoryImpl" />
+    <bean id="lectureRepo" class="ouhk.comps380f.dao.LectureRepositoryImpl" />
+    <bean id="labRepo" class="ouhk.comps380f.dao.LabRepositoryImpl" />
+    <bean id="otherRepo" class="ouhk.comps380f.dao.OtherRepositoryImpl" />
+    <bean id="replyRepo" class="ouhk.comps380f.dao.ReplyRepositoryImpl" />  
+    
 </beans>

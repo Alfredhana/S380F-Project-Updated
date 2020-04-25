@@ -21,8 +21,8 @@
             class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <b:property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
         <b:property name="url" value="jdbc:derby://localhost:1527/projectDB" />
-        <b:property name="username" value="nbuser" />
-        <b:property name="password" value="nbuser" />
+        <b:property name="username" value="dbuser" />
+        <b:property name="password" value="dbuser" />
     </b:bean>
     
     <http auto-config="true">

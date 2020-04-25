@@ -1,8 +1,17 @@
 package ouhk.comps380f.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import ouhk.comps380f.model.Ticket;
+import ouhk.comps380f.model.Attachment;
+import ouhk.comps380f.model.Lab;
+import java.util.List;
 
-
-public interface LabRepository extends JpaRepository<Ticket, String>{
+/**
+ *
+ * @author German
+ */
+public interface LabRepository {
+    public int createLab(Lab lab);
+    public void createAttachment(Lab lab, int topicId);
+    public List<Lab> findAll();
+    public Lab findByLabId(int id);
+    public void deleteByLabId(int id);
 }
