@@ -90,38 +90,4 @@ public class RegisterController {
             this.password2 = password2;
         }
     }
-
-    public int checkExisted(String name) {
-        Connection conn;
-        ResultSet rs;
-        int count = 0;
-        try {
-            conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("select  count(*) as count from users where username = ?");
-            ps.setString(1, name);
-            rs = ps.executeQuery();
-            while(rs.next())
-                count = rs.getInt("count");
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-        }        
-        return count;
-    }
-    
-    /*public void addUser(String name, String pw) {
-        Connection conn;
-        try {
-            conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("insert into users (username, password) values (?, ?)");
-            PreparedStatement ps2 = conn.prepareStatement("insert into user_roles (username, role) values (?, 'ROLE_USER')");
-            ps.setString(1, name);
-            ps.setString(2, pw);
-            ps2.setString(1, name);
-            ps.execute();
-            ps2.execute();
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
 }

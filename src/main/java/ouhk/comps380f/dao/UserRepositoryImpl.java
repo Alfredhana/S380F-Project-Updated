@@ -18,10 +18,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author EricYan
- */
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
@@ -45,31 +41,6 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-    /* @Override
-    public void create(User user) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("insert into users (username, password) values (?, ?)");
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.execute();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(UserRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }*/
     @Override
     public void create(User user) {
         jdbcOp.update("insert into users (username, password) values (?, ?)", user.getUsername(), user.getPassword());
@@ -107,37 +78,7 @@ public class UserRepositoryImpl implements UserRepository {
         return result;
     }
 
-    /*@Override
-    public List<User> findAll() {
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs;
-        ResultSet rs2;
-        List<User> users = new ArrayList<>();
-        String findUserQuery = "select username, password from users";
-        try {
-            conn = dataSource.getConnection();
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(findUserQuery);
-            while (rs.next()) {
-                User user = new User();
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                user.setUsername(username);
-                user.setPassword(password);
-                PreparedStatement ps = conn.prepareStatement("select username, role from user_roles where username = ?");
-                ps.setString(1, username);
-                rs2 = ps.executeQuery();
-                while (rs2.next()) {
-                    user.addRole(rs2.getString("role"));
-                }
-                users.add(user);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return users;
-    }*/
+    
     @Override
     public User findByUsername(String username) {
         User user = jdbcOp.queryForObject("select username, password from users where username = ?", new UserRowMapper(), username);
