@@ -4,6 +4,8 @@
         <title>Course Discussion Forum</title>
     </head> 
     <body>
+        <spring:message code="label.mainHello"/><br /><a href="<c:url value="http://localhost:8080/Lab10/?lang=en" />">English</a> | <a href="<c:url value="http://localhost:8080/Lab10/?lang=hk" />">Traditional Chinese</a>
+        <br /><br />
         <security:authorize access="isAuthenticated() ">              
             <c:url var="logoutUrl" value="/logout"/>
             <form action="${logoutUrl}" method="post">
@@ -13,13 +15,13 @@
             Welcome, <security:authentication property="principal.username" />!!<br /><br />            
         </security:authorize>
         <security:authorize access="isAnonymous()">
-            <a href="<c:url value="/login" />">Login</a>   
-            <a href="<c:url value="/register" />">Register</a><br /><br />
+            <a href="<c:url value="/login" />"><spring:message code="label.login"/></a>   
+            <a href="<c:url value="/register" />"><spring:message code="label.register"/></a><br /><br />
         </security:authorize>
         <security:authorize access="hasRole('ADMIN')">
             <a href="<c:url value="/user" />">Admin Management</a><br />
         </security:authorize>
-            <h2>Current Poll</h2>
+            <h2><spring:message code="label.poll"/></h2>
         
         <c:choose>
             <c:when test="${fn:length(pollDB) == 0}">
@@ -86,9 +88,9 @@
         <security:authorize access="isAuthenticated() ">
             <a href="<c:url value="/ticket/create" />">Create a Ticket</a><br /><br />
         </security:authorize>
-        <a href="<c:url value="/lecture" />">Lecture</a><br>
-        <a href="<c:url value="/lab" />">Lab</a><br>
-        <a href="<c:url value="/other" />">Other</a><br>
+        <a href="<c:url value="/lecture" />"><spring:message code="label.lecture"/></a><br>
+        <a href="<c:url value="/lab" />"><spring:message code="label.lab"/></a><br>
+        <a href="<c:url value="/other" />"><spring:message code="label.other"/></a><br>
         
     </body>
 </html>
