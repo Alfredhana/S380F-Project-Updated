@@ -91,7 +91,7 @@ public class TicketUserController {
     
     @GetMapping("/edit/{username}")
     public ModelAndView showUserEdit(@PathVariable("username") String username,
-            Principal principal, HttpServletRequest request) {
+            HttpServletRequest request) {
         TicketUser ticketUser = ticketUserRepo.findById(username).orElse(null);
         if (ticketUser == null) {
             throw new UsernameNotFoundException("User '" + username + "' not found.");
@@ -106,8 +106,8 @@ public class TicketUserController {
     }
     
     @PostMapping("/edit/{username}")
-    public String updateUser(@PathVariable("username")String username, String password, Form form,
-            Principal principal, HttpServletRequest request)
+    public String updateUser(@PathVariable("username")String username, String password,
+            HttpServletRequest request)
             throws IOException, UsernameNotFoundException {
         TicketUser updatedUser = ticketUserRepo.findById(username).orElse(null);
         if (updatedUser == null) {

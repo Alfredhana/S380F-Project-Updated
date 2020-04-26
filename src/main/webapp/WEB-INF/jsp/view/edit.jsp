@@ -10,7 +10,6 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
         <h2>Ticket #${ticketId}</h2>
-        <h2>Ticket #${ticket.id}</h2>
         <form:form method="POST" enctype="multipart/form-data"
                    modelAttribute="ticketForm">
             <form:label path="subject">Subject</form:label><br/>

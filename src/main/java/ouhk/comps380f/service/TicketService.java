@@ -10,7 +10,7 @@ import ouhk.comps380f.model.Ticket;
 public interface TicketService {
 
     public long createTicket(String customerName, String subject,
-            String body, String category,List<MultipartFile> attachments) throws IOException;
+            String body, String category, List<MultipartFile> attachments) throws IOException;
 
     public List<Ticket> getTickets();
 
