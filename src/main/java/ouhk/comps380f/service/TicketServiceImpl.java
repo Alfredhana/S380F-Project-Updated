@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ouhk.comps380f.dao.AttachmentRepository;
+import ouhk.comps380f.dao.ReplyRepository;
 import ouhk.comps380f.dao.TicketRepository;
 import ouhk.comps380f.exception.AttachmentNotFound;
 import ouhk.comps380f.exception.TicketNotFound;
 import ouhk.comps380f.model.Attachment;
+import ouhk.comps380f.model.Reply;
+import ouhk.comps380f.model.ReplyAttachment;
 import ouhk.comps380f.model.Ticket;
 
 @Service
@@ -18,6 +21,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Resource
     private TicketRepository ticketRepo;
+    
+    @Resource
+    private ReplyRepository replyRepo;
     
     @Resource
     private AttachmentRepository attachmentRepo;
@@ -107,5 +113,28 @@ public class TicketServiceImpl implements TicketService {
             }
         }
         ticketRepo.save(updatedTicket);
+    }
+    
+    @Override
+    @Transactional
+    public void createReply(String reply_content, String reply_author, long ticket_id, List<MultipartFile> replyAttachments) throws IOException {
+        Ticket ticket = getTicket(ticket_id);
+        Reply aReply = new Reply();
+        aReply.setReplycontent(reply_content);
+        aReply.setReplyauthor(reply_author);
+        for (MultipartFile filePart : replyAttachments) {
+            ReplyAttachment replyAttachment = new ReplyAttachment();
+            replyAttachment.setRname(filePart.getOriginalFilename());
+            replyAttachment.setRmimeContentType(filePart.getContentType());
+            replyAttachment.setRcontents(filePart.getBytes());
+            replyAttachment.setReply(aReply);
+            if (replyAttachment.getRname() != null && replyAttachment.getRname().length() > 0
+                    && replyAttachment.getRcontents() != null
+                    && replyAttachment.getRcontents().length > 0) {
+                aReply.getReplyAttachments().add(replyAttachment);
+            }
+        }
+        aReply.setTicket(ticket);
+        replyRepo.save(aReply);
     }
 }

@@ -33,6 +33,19 @@ public class Ticket implements Serializable {
     @Fetch(FetchMode.SUBSELECT)
     private List<Attachment> attachments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "ticket", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<Reply> reply = new ArrayList<>();
+    
+    public List<Reply> getReply() {
+        return reply;
+    }
+
+    public void setReply(List<Reply> reply) {
+        this.reply = reply;
+    }
+    
     public String getCategory() {
         return category;
     }

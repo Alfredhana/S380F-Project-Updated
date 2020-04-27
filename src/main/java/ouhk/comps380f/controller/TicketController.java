@@ -15,13 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
-import ouhk.comps380f.dao.ReplyRepository;
 import ouhk.comps380f.exception.AttachmentNotFound;
 import ouhk.comps380f.exception.TicketNotFound;
 import ouhk.comps380f.model.Attachment;
+import ouhk.comps380f.model.ReplyAttachment;
 import ouhk.comps380f.model.Ticket;
 import ouhk.comps380f.service.AttachmentService;
-//import ouhk.comps380f.service.ReplyService;
+import ouhk.comps380f.service.ReplyAttachmentService;
 import ouhk.comps380f.service.TicketService;
 import ouhk.comps380f.view.DownloadingView;
 
@@ -35,11 +35,8 @@ public class TicketController {
     @Autowired
     private AttachmentService attachmentService;
     
-    /*@Autowired
-    private ReplyService replyService;*/
-    
     @Autowired
-    private ReplyRepository replyRepo;
+    private ReplyAttachmentService replyAttachmentService;
 
     @GetMapping({"", "/list"})
     public String list(ModelMap model) {
@@ -121,6 +118,17 @@ public class TicketController {
         }
         return new RedirectView("/ticket/list", true);
     }
+    
+    @GetMapping("/{replyid}/replyAttachment/{attachment:.+}")
+    public View downloadReply(@PathVariable("replyid") long replyid,
+            @PathVariable("attachment") String rname) {
+        ReplyAttachment rAttachment = replyAttachmentService.getReplyAttachment(replyid, rname);
+        if (rAttachment != null) {
+            return new DownloadingView(rAttachment.getRname(),
+                    rAttachment.getRmimeContentType(), rAttachment.getRcontents());
+        }
+        return new RedirectView("/ticket/list", true);
+    }
 
     @GetMapping("/{ticketId}/delete/{attachment:.+}")
     public String deleteAttachment(@PathVariable("ticketId") long ticketId,
@@ -199,9 +207,16 @@ public class TicketController {
         }
     }
     
-    /*@PostMapping("/createReply/{ticketId}")
-    public String create(@PathVariable("ticketId") long ticketId, ReplyForm form, Principal principal) throws IOException {
-        long ticket_id = replyService.createReply(form.getReply_content(), principal.getName(), ticketId, form.getReplyAttachments());
-        return "redirect:/ticket/list";
-    }*/
+    @PostMapping("/createReply/{ticketId}")
+    public String reply(@PathVariable("ticketId") long ticketId, ReplyForm form,
+            Principal principal, HttpServletRequest request)
+            throws IOException, TicketNotFound {
+        Ticket ticket = ticketService.getTicket(ticketId);
+        if (ticket == null) {
+            return "redirect:/ticket/list";
+        }
+        ticketService.createReply(form.getReply_content(),
+                principal.getName(), ticketId, form.getReplyAttachments());
+        return "redirect:/ticket/view/" + ticketId;
+    }
 }

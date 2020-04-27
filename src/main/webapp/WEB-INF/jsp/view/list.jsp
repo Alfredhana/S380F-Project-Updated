@@ -4,6 +4,10 @@
         <title>Customer Support</title>
     </head>
     <body>
+        <security:authorize access="isAnonymous()">
+            <a href="<c:url value="/login" />">Login</a>   
+            <a href="<c:url value="/register" />">Register</a><br /><br />
+        </security:authorize>
         <security:authorize access="isAuthenticated()">
             <c:url var="logoutUrl" value="/logout"/>
             <form action="${logoutUrl}" method="post">

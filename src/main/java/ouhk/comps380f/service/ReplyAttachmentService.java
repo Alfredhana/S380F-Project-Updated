@@ -5,5 +5,5 @@ import ouhk.comps380f.model.ReplyAttachment;
 
 public interface ReplyAttachmentService {
     
-    public ReplyAttachment getReplyAttachment(long replyId, String name);
+    public ReplyAttachment getReplyAttachment(long replyid, String rname);
 }

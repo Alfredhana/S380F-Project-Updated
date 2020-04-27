@@ -1,11 +1,12 @@
 package ouhk.comps380f.service;
 
 import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ouhk.comps380f.dao.ReplyAttachmentRepository;
 import ouhk.comps380f.model.ReplyAttachment;
 
-
+@Service
 public class ReplyAttachmentServiceImpl implements ReplyAttachmentService {
     
     @Resource
@@ -13,7 +14,7 @@ public class ReplyAttachmentServiceImpl implements ReplyAttachmentService {
     
     @Override
     @Transactional
-    public ReplyAttachment getReplyAttachment(long replyId, String name){
-        return replyAttachmentRepo.findByTicketIdAndName(replyId, name);
+    public ReplyAttachment getReplyAttachment(long replyid, String rname){
+        return replyAttachmentRepo.findByReplyidAndRname(replyid, rname);
     }
 }

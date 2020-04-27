@@ -13,8 +13,6 @@
         </security:authorize>
         <h2>Ticket #${ticket.id}: <c:out value="${ticket.subject}" /></h2>
         <security:authorize access="isAuthenticated()">
-            [<a href="<c:url value="/ticket/createReply/${ticket.id}" />">Create Reply</a>]
-        
             <security:authorize access="hasRole('ADMIN') or principal.username=='${ticket.customerName}'">
                 [<a href="<c:url value="/ticket/edit/${ticket.id}" />">Edit</a>]
             </security:authorize>
@@ -36,18 +34,24 @@
             </security:authorize>
         </c:if>
         <a href="<c:url value="/ticket/list" />">Return to list tickets</a><br /><br />
-        <h2>Reply</h2><br /><br />
-        <c:if test="${fn:length(reply) > 0}">
-            <i>Customer Name - <c:out value="${reply.reply_author}" /></i><br /><br />
-            <c:out value="${reply.reply_content}" /><br /><br />
-            <c:if test="${fn:length(reply.replyAttachments) > 0}">
-                Reply Attachments:
-                <c:forEach items="${reply.replyAttachments}" var="replyAttachment" varStatus="status">
-                    <c:if test="${!status.first}">, </c:if>
-                    <a href="<c:url value="/ticket/${ticket.id}/replyAttachment/${replyAttachment.name}" />">
-                        <c:out value="${replyAttachment.name}" /></a>
-                </c:forEach><br /><br />
+        <h2>Reply</h2>
+        <security:authorize access="isAuthenticated()">
+            [<a href="<c:url value="/ticket/createReply/${ticket.id}" />">Create Reply</a>]<br /><br />
+        </security:authorize>
+            <c:if test="${fn:length(ticket.reply) > 0}">
+                <c:forEach items="${ticket.reply}" var="r" varStatus="status">
+                    <i>Customer Name - ${r.replyauthor}</i><br /><br />
+                    <c:out value="${r.replycontent}" /><br /><br />
+                    <c:if test="${fn:length(r.replyAttachments) > 0}">
+                        Reply Attachments:
+                        <c:forEach items="${r.replyAttachments}" var="replyAttachment" varStatus="status">
+                            <c:if test="${!status.first}">, </c:if>
+                            <a href="<c:url value="/ticket/${ticket.id}/replyAttachment/${replyAttachment.rname}" />">
+                                <c:out value="${replyAttachment.rname}" /></a>
+                        </c:forEach><br /><br />                    
+                    </c:if>
+                    <hr/>
+                </c:forEach>
             </c:if>
-        </c:if>
     </body>
 </html>

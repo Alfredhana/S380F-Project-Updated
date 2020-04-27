@@ -19,15 +19,15 @@ public class ReplyAttachment implements Serializable {
     private long id;
 
     @Column(name = "filename")
-    private String name;
+    private String rname;
 
     @Column(name = "content_type")
-    private String mimeContentType;
+    private String rmimeContentType;
 
     @Column(name = "content")
     @Basic(fetch = FetchType.LAZY)
     @Lob
-    private byte[] contents;
+    private byte[] rcontents;
     
     @Column(name = "reply_id", insertable = false, updatable = false)
     private long replyid;
@@ -44,29 +44,31 @@ public class ReplyAttachment implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRname() {
+        return rname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRname(String rname) {
+        this.rname = rname;
     }
 
-    public String getMimeContentType() {
-        return mimeContentType;
+    public String getRmimeContentType() {
+        return rmimeContentType;
     }
 
-    public void setMimeContentType(String mimeContentType) {
-        this.mimeContentType = mimeContentType;
+    public void setRmimeContentType(String rmimeContentType) {
+        this.rmimeContentType = rmimeContentType;
     }
 
-    public byte[] getContents() {
-        return contents;
+    public byte[] getRcontents() {
+        return rcontents;
     }
 
-    public void setContents(byte[] contents) {
-        this.contents = contents;
+    public void setRcontents(byte[] rcontents) {
+        this.rcontents = rcontents;
     }
+
+    
 
     public long getReplyid() {
         return replyid;

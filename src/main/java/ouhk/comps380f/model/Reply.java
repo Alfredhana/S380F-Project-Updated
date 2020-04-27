@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,11 +21,14 @@ public class Reply implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long reply_id;
+    @Column(name = "reply_id")
+    private long replyid;
     
-    private String reply_content;
-    private String reply_author;
-    //private long ticket_id;
+    @Column(name = "reply_content")
+    private String replycontent;
+    
+    @Column(name = "reply_author")
+    private String replyauthor;
     
     @OneToMany(mappedBy = "reply", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL, orphanRemoval = true)
@@ -34,16 +38,6 @@ public class Reply implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
-    
-    /*public Reply(){        
-    }
-
-    public Reply(String reply_content, String reply_author, long ticket_id) {
-        this.reply_id = reply_id;
-        this.reply_content = reply_content;
-        this.reply_author = reply_author;
-        this.ticket_id = ticket_id;
-    }*/
 
     public Ticket getTicket() {
         return ticket;
@@ -53,37 +47,29 @@ public class Reply implements Serializable {
         this.ticket = ticket;
     }
 
-    public long getReply_id() {
-        return reply_id;
+    public long getReplyid() {
+        return replyid;
     }
 
-    public void setReply_id(long reply_id) {
-        this.reply_id = reply_id;
+    public void setReplyid(long replyid) {
+        this.replyid = replyid;
     }
 
-    public String getReply_content() {
-        return reply_content;
+    public String getReplycontent() {
+        return replycontent;
     }
 
-    public void setReply_content(String reply_content) {
-        this.reply_content = reply_content;
+    public void setReplycontent(String replycontent) {
+        this.replycontent = replycontent;
     }
 
-    public String getReply_author() {
-        return reply_author;
+    public String getReplyauthor() {
+        return replyauthor;
     }
 
-    public void setReply_author(String reply_author) {
-        this.reply_author = reply_author;
+    public void setReplyauthor(String replyauthor) {
+        this.replyauthor = replyauthor;
     }    
-    
-    /*public long getTicket_id() {
-        return ticket_id;
-    }
-
-    public void setTicket_id(long ticket_id) {
-        this.ticket_id = ticket_id;
-    }*/
 
     public List<ReplyAttachment> getReplyAttachments() {
         return replyAttachments;

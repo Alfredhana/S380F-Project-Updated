@@ -1,10 +1,11 @@
 package ouhk.comps380f.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ouhk.comps380f.model.ReplyAttachment;
 
 
-public interface ReplyAttachmentRepository {
+public interface ReplyAttachmentRepository extends JpaRepository<ReplyAttachment, Long> {
     
-    public ReplyAttachment findByTicketIdAndName(long replyId, String name);
+    public ReplyAttachment findByReplyidAndRname(long replyid, String rname);
     
 }

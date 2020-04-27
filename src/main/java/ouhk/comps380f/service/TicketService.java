@@ -12,6 +12,9 @@ public interface TicketService {
     public long createTicket(String customerName, String subject,
             String body, String category, List<MultipartFile> attachments) throws IOException;
 
+    public void createReply(String reply_content, String reply_author, long ticket_id,
+            List<MultipartFile> replyAttachments) throws IOException;
+    
     public List<Ticket> getTickets();
 
     public Ticket getTicket(long id);
