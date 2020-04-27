@@ -32,7 +32,7 @@
                     Poll Topic: ${poll.topic}<br><br/>
                     <form:form method="POST" modelAttribute="displayPoll">
                         <c:if test="${poll.optionone != ''}">
-                            Option One : ${poll.optionone} 
+                            Option One : ${poll.optionone} ,
                             Vote count :
                             <c:set var="count" value="0" scope="page" />
                             <c:forEach items="${voteset}" var="entry">
@@ -46,7 +46,7 @@
                             </security:authorize>
                         </c:if>
                         <c:if test="${poll.optiontwo != ''}">
-                            Option Two : ${poll.optiontwo}
+                            Option Two : ${poll.optiontwo} ,
                             Vote count :
                             <c:set var="count" value="0" scope="page" />
                             <c:forEach items="${voteset}" var="entry">
@@ -60,7 +60,7 @@
                             </security:authorize>
                         </c:if>
                         <c:if test="${poll.optionthree != ''}">
-                            Option Three : ${poll.optionthree} 
+                            Option Three : ${poll.optionthree} ,
                             Vote count :
                             <c:set var="count" value="0" scope="page" />
                             <c:forEach items="${voteset}" var="entry">
@@ -74,7 +74,7 @@
                             </security:authorize>
                         </c:if>
                         <c:if test="${poll.optionfour != ''}">
-                            Option Four : ${poll.optionfour}
+                            Option Four : ${poll.optionfour} ,
                             Vote count :
                             <c:set var="count" value="0" scope="page" />
                             <c:forEach items="${voteset}" var="entry">

@@ -18,6 +18,7 @@
         <security:authorize access="hasRole('ADMIN')">
             <a href="<c:url value="/user" />">Admin Management</a><br /><br />
         </security:authorize>
+        <a href="<c:url value="/" />">Home</a><br>
         <a href="<c:url value="/lecture" />">Lecture</a><br>
         <a href="<c:url value="/lab" />">Lab</a><br>
         <a href="<c:url value="/other" />">Other</a><br>
