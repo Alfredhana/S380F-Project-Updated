@@ -11,4 +11,8 @@ public interface PollService {
             String optionthree, String optionfour) throws IOException;
     
     public List<Poll> getPolls();
+    
+    public Poll getPoll(long pollid);
+    
+    public void createVote(long pollid, String username, String choice) throws IOException;
 }

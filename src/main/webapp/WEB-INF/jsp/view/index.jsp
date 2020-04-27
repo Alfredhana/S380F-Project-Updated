@@ -31,11 +31,12 @@
                 <c:forEach items="${pollDB}" var="poll">
                     Poll Topic: ${poll.topic}<br><br/>
                     <form:form method="POST" modelAttribute="displayPoll">
+                        <form:hidden path="pollid" value="${poll.pollid}"/>
                         <c:if test="${poll.optionone != ''}">
                             Option One : ${poll.optionone} ,
                             Vote count :
                             <c:set var="count" value="0" scope="page" />
-                            <c:forEach items="${voteset}" var="entry">
+                            <c:forEach items="${poll.votes}" var="entry">
                                 <c:if test="${entry.choice == 1}">
                                     <c:set var="count" value="${count + 1}" scope="page"/>
                                 </c:if>
@@ -49,7 +50,7 @@
                             Option Two : ${poll.optiontwo} ,
                             Vote count :
                             <c:set var="count" value="0" scope="page" />
-                            <c:forEach items="${voteset}" var="entry">
+                            <c:forEach items="${poll.votes}" var="entry">
                                 <c:if test="${entry.choice == 2}">
                                     <c:set var="count" value="${count + 1}" scope="page"/>
                                 </c:if>
@@ -63,7 +64,7 @@
                             Option Three : ${poll.optionthree} ,
                             Vote count :
                             <c:set var="count" value="0" scope="page" />
-                            <c:forEach items="${voteset}" var="entry">
+                            <c:forEach items="${poll.votes}" var="entry">
                                 <c:if test="${entry.choice == 3}">
                                     <c:set var="count" value="${count + 1}" scope="page"/>
                                 </c:if>
@@ -77,7 +78,7 @@
                             Option Four : ${poll.optionfour} ,
                             Vote count :
                             <c:set var="count" value="0" scope="page" />
-                            <c:forEach items="${voteset}" var="entry">
+                            <c:forEach items="${poll.votes}" var="entry">
                                 <c:if test="${entry.choice == 4}">
                                     <c:set var="count" value="${count + 1}" scope="page"/>
                                 </c:if>
