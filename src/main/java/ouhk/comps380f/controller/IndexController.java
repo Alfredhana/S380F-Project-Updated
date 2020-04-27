@@ -54,7 +54,7 @@ public class IndexController {
     @PostMapping
     public String vote(voteForm form, Principal principal, HttpServletRequest request) throws IOException {
         Poll aPoll = pollService.getPoll(form.pollid);
-        if (aPoll == null) {
+        if (aPoll == null || form.getChoice() == null) {
             return "redirect:/";
         }
         pollService.createVote(form.pollid, principal.getName(), form.getChoice());
