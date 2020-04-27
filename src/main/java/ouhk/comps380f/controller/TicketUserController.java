@@ -180,6 +180,6 @@ public class TicketUserController {
     @PostMapping("/createPoll")
     public View createPoll(PollaForm form) throws IOException {
         pollService.createPoll(form.topic, form.optionone, form.optiontwo, form.optionthree, form.optionfour);
-        return new RedirectView("/user/list", true);
+        return new RedirectView("/", true);
     }
 }
