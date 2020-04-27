@@ -1,10 +1,15 @@
 package ouhk.comps380f.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -16,25 +21,24 @@ public class Poll implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pollid;
     
-//    @OneToMany(mappedBy = "poll", fetch = FetchType.EAGER,
-//            cascade = CascadeType.ALL, orphanRemoval = true)
     private String topic;
     private String optionone;
     private String optiontwo;
     private String optionthree;
     private String optionfour;
+    
+    @OneToMany(mappedBy = "poll", fetch = FetchType.EAGER,
+        cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vote> votes = new ArrayList<>();
 
-    public Poll() {
+    public List<Vote> getVotes() {
+        return votes;
     }
 
-    public Poll(String topic, String optionone, String optiontwo, String optionthree, String optionfour) {
-        this.topic= topic;
-        this.optionone = optionone;
-        this.optiontwo = optiontwo;
-        this.optionthree = optionthree;
-        this.optionfour = optionfour;
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
     }
-
+    
     public long getPollid() {
         return pollid;
     }

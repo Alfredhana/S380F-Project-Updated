@@ -9,7 +9,7 @@
         <br /><br />
         <a href="<c:url value="/ticket" />">Return to list tickets</a>
         <h2>Users</h2>
-        <a href="<c:url value="/createPoll" />">Create a Poll</a><br /><br />
+        <a href="<c:url value="/user/createPoll" />">Create a Poll</a><br /><br />
         <a href="<c:url value="/user/create" />">Create a User</a><br /><br />        
         <c:choose>
             <c:when test="${fn:length(ticketUsers) == 0}">

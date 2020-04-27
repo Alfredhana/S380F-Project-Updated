@@ -28,61 +28,70 @@
                 <p> There are no active poll yet </p>
             </c:when>
             <c:otherwise>
-                Poll Topic: <c:out value="${pollDB.topic}"/> <br><br/>
-                <form:form method="POST" modelAttribute="displayPoll">
-                    <form:hidden path="pollid" value="${pollDB.id}"/>
-                    <c:if test="${pollDB.optionone != ''}">
-                        Option One : ${pollDB.optionone} 
-                        Vote count :
-                        <c:set var="count" value="0" scope="page" />
-                        <c:forEach items="${voteset}" var="entry">
-                            <c:if test="${entry.choice == 1}">
-                                <c:set var="count" value="${count + 1}" scope="page"/>
-                            </c:if>
-                        </c:forEach>
-                        ${count}
-                        <form:radiobutton path="choice" value="1"/><br/><br/>
-                    </c:if>
-                    <c:if test="${pollDB.optiontwo != ''}">
-                        Option Two : ${pollDB.optiontwo}
-                        Vote count :
-                        <c:set var="count" value="0" scope="page" />
-                        <c:forEach items="${voteset}" var="entry">
-                            <c:if test="${entry.choice == 2}">
-                                <c:set var="count" value="${count + 1}" scope="page"/>
-                            </c:if>
-                        </c:forEach>
-                        ${count}
-                        <form:radiobutton path="choice" value="2"/><br/><br/>
-                    </c:if>
-                    <c:if test="${pollDB.optionthree != ''}">
-                        Option Three : ${pollDB.optionthree} 
-                        Vote count :
-                        <c:set var="count" value="0" scope="page" />
-                        <c:forEach items="${voteset}" var="entry">
-                            <c:if test="${entry.choice == 3}">
-                                <c:set var="count" value="${count + 1}" scope="page"/>
-                            </c:if>
-                        </c:forEach>
-                        ${count}
-                        <form:radiobutton path="choice" value="3"/><br/><br/>
-                    </c:if>
-                    <c:if test="${pollDB.optionfour != ''}">
-                        Option Four : ${pollDB.optionfour}
-                        Vote count :
-                        <c:set var="count" value="0" scope="page" />
-                        <c:forEach items="${voteset}" var="entry">
-                            <c:if test="${entry.choice == 4}">
-                                <c:set var="count" value="${count + 1}" scope="page"/>
-                            </c:if>
-                        </c:forEach>
-                        ${count}
-                        <form:radiobutton path="choice" value="4"/><br/><br/>
-                    </c:if>
-                    <security:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-                        <input type="submit" value="Vote"/>
-                    </security:authorize>
-                </form:form>
+                <c:forEach items="${pollDB}" var="poll">
+                    Poll Topic: ${poll.topic}<br><br/>
+                    <form:form method="POST" modelAttribute="displayPoll">
+                        <c:if test="${poll.optionone != ''}">
+                            Option One : ${poll.optionone} 
+                            Vote count :
+                            <c:set var="count" value="0" scope="page" />
+                            <c:forEach items="${voteset}" var="entry">
+                                <c:if test="${entry.choice == 1}">
+                                    <c:set var="count" value="${count + 1}" scope="page"/>
+                                </c:if>
+                            </c:forEach>
+                            ${count}<br/>
+                            <security:authorize access="isAuthenticated() ">
+                                <form:radiobutton path="choice" value="1"/><br/><br/>
+                            </security:authorize>
+                        </c:if>
+                        <c:if test="${poll.optiontwo != ''}">
+                            Option Two : ${poll.optiontwo}
+                            Vote count :
+                            <c:set var="count" value="0" scope="page" />
+                            <c:forEach items="${voteset}" var="entry">
+                                <c:if test="${entry.choice == 2}">
+                                    <c:set var="count" value="${count + 1}" scope="page"/>
+                                </c:if>
+                            </c:forEach>
+                            ${count}<br/>
+                            <security:authorize access="isAuthenticated() ">
+                                <form:radiobutton path="choice" value="2"/><br/><br/>
+                            </security:authorize>
+                        </c:if>
+                        <c:if test="${poll.optionthree != ''}">
+                            Option Three : ${poll.optionthree} 
+                            Vote count :
+                            <c:set var="count" value="0" scope="page" />
+                            <c:forEach items="${voteset}" var="entry">
+                                <c:if test="${entry.choice == 3}">
+                                    <c:set var="count" value="${count + 1}" scope="page"/>
+                                </c:if>
+                            </c:forEach>
+                            ${count}<br/>
+                            <security:authorize access="isAuthenticated() ">
+                                <form:radiobutton path="choice" value="3"/><br/><br/>
+                            </security:authorize>
+                        </c:if>
+                        <c:if test="${poll.optionfour != ''}">
+                            Option Four : ${poll.optionfour}
+                            Vote count :
+                            <c:set var="count" value="0" scope="page" />
+                            <c:forEach items="${voteset}" var="entry">
+                                <c:if test="${entry.choice == 4}">
+                                    <c:set var="count" value="${count + 1}" scope="page"/>
+                                </c:if>
+                            </c:forEach>
+                            ${count}<br/>
+                            <security:authorize access="isAuthenticated() ">
+                                <form:radiobutton path="choice" value="4"/><br/><br/>
+                            </security:authorize>
+                        </c:if>
+                        <security:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+                            <input type="submit" value="Vote"/><br/><br/>
+                        </security:authorize>
+                    </form:form>
+                </c:forEach>
             </c:otherwise>
         </c:choose>
         <security:authorize access="isAuthenticated() ">
